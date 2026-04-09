@@ -1,0 +1,11 @@
+{
+  "name": "neil-tessl/git-commit-messages",
+  "version": "0.1.0",
+  "summary": "Follow conventional commits format with clear descriptions.",
+  "private": true,
+  "skills": {
+    "git-commit-messages": {
+      "path": "git-commit-messages/SKILL.md"
+    }
+  }
+}
