@@ -47,3 +47,9 @@ fix(api): handle null response from external service
 The payment gateway occasionally returns null instead of
 an error object. Guard against this to prevent 500s.
 ```
+
+## Scope Guidelines
+
+- Use the module or directory name as the scope (e.g., `auth`, `api`, `db`)
+- Omit scope for changes that span multiple modules
+- Keep scope lowercase and hyphenated
