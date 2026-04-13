@@ -1,0 +1,1 @@
+Correct JavaScript package and streaming output

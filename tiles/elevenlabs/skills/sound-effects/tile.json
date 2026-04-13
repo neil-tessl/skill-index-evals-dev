@@ -1,0 +1,11 @@
+{
+  "name": "tessl-skill-index-evals/27288c44e94433bf",
+  "version": "0.0.1",
+  "summary": "Eval scenarios for elevenlabs/skills: sound-effects",
+  "private": true,
+  "skills": {
+    "sound-effects": {
+      "path": "skill/SKILL.md"
+    }
+  }
+}
