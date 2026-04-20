@@ -1,0 +1,11 @@
+{
+  "name": "tessl-skill-index-evals/f0fe930873cebd3c",
+  "version": "0.0.1",
+  "summary": "Eval scenarios for vercel-labs/skills: find-skills",
+  "private": true,
+  "skills": {
+    "find-skills": {
+      "path": "skill/SKILL.md"
+    }
+  }
+}
