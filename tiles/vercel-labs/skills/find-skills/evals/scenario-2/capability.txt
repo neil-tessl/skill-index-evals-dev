@@ -1,0 +1,1 @@
+No-results handling and fallback guidance
