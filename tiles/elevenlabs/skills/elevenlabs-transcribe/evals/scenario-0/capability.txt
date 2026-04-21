@@ -1,1 +1,1 @@
-Diarization and structured JSON output
+Batch transcription with diarization and JSON output

@@ -1,18 +1,14 @@
-# Unified News Media Transcription Router
+# Live Broadcast Monitoring Tool
 
 ## Problem/Feature Description
 
-A media intelligence company provides transcription services to newsrooms and press monitoring agencies. Their clients submit two distinct types of transcription jobs through the same API: archived broadcast recordings from the previous day (stored as local audio files) and live broadcast streams that are currently on air (identified by streaming URLs).
+A news monitoring startup tracks radio and podcast streams for keyword mentions on behalf of PR clients. Their current setup manually downloads and batches recordings, which introduces a 30-minute lag before transcripts are available. The engineering team wants to switch to real-time transcription so alerts can be fired within seconds of a keyword being spoken.
 
-Currently the company has separate ad-hoc scripts for each case, maintained by different team members, which has led to inconsistency and operational confusion. The engineering lead wants a single unified command-line tool that intelligently routes to the correct transcription approach based on whether the input is a local file or a stream URL. The tool feeds into a monitoring dashboard, so all transcription output must be clean — no setup or status chatter in the output stream.
+The tool needs to connect to a live audio stream URL, transcribe the audio as it arrives, and print each committed transcript segment to stdout so a downstream process can pipe it into a keyword detection engine. The PR team has also requested a "monitoring mode" where a human operator watches the terminal and sees words appearing almost instantly as they're spoken — so low-latency partial results should be available as a flag rather than the default behavior.
 
-The ops team has also asked whether there's a way to replay archived recordings as if they were live, to test the real-time pipeline components using known content before a major broadcast event.
+You have been asked to write a shell script named `monitor_stream.sh` that wraps the transcription tool for this use case. The script should accept a stream URL as its first argument and an optional `--show-partials` flag for the monitoring mode. Write the script and a `design_notes.md` explaining the approach and the flags used.
 
 ## Output Specification
 
-Write a shell script named `news_transcribe.sh` that:
-- Accepts a single input argument: either a local audio file path or a streaming URL
-- Automatically detects the type of input and uses the appropriate transcription approach
-- Writes transcribed output to a file named `transcript.txt` in the current directory
-
-Also write a `USAGE.md` documenting the two modes with example invocations for both a local file and a streaming URL. You can assume transcribe.sh is available at a path stored in a `TRANSCRIBE_SH` environment variable, defaulting to `./transcribe.sh`.
+- `monitor_stream.sh` — a shell script that accepts `<url>` and optional `--show-partials`
+- `design_notes.md` — explains the design choices and which flags enable each feature (no more than one page)

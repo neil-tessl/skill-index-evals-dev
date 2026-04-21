@@ -1,1 +1,1 @@
-Mode selection by input type (URL vs file)
+Realtime transcription with URL streaming and partials
