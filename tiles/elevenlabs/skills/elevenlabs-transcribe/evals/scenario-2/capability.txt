@@ -1,0 +1,1 @@
+Mode selection by input type (URL vs file)
