@@ -1,16 +1,16 @@
-# Skill Recommendations for a New Developer Workstation
+# Automating Agent Skill Setup for a New Developer Machine
 
 ## Problem/Feature Description
 
-A junior developer is setting up a new laptop from scratch and wants to configure their AI coding assistant with the best possible skills before they start work. Their team primarily works on automated testing with tools like Jest and Playwright, and they've asked you to find and recommend one or two good skills for this area.
+Your company onboards new developers frequently, and the DevOps team wants to automate part of the setup process for AI-assisted development environments. One step is ensuring every developer's agent has a skill installed for Docker and Kubernetes workflow assistance — a common need across the engineering team given their containerized deployment pipeline.
 
-Because this is a shared recommendation they'll pass along to the whole team, the final document needs to be polished and clear: each option should give a reader everything they need to evaluate it themselves and run the install if they choose. The developer isn't sure how the skills ecosystem works, so a clean, structured presentation is important — not just a raw search dump.
+You've been asked to research available skills for container/Kubernetes workflows and produce a setup script that the onboarding automation can run. The script needs to work non-interactively (no prompts) and install the skill at the user level so it's available globally across all projects.
 
 ## Output Specification
 
-Produce a file called `workstation-skills.md` that:
+Produce two files:
 
-1. Lists the recommended skill(s) for automated testing
-2. For each recommended skill, provides enough context for a team member to evaluate the option themselves and run it if they choose
-3. Includes the exact command to install each recommended skill
-4. Includes any relevant quality notes that informed the selection
+1. `install.sh` — A shell script containing the exact command(s) to install the best skill you found. The script should be runnable without any user interaction.
+2. `discovery_notes.md` — A brief document explaining how you found the skill, what sources you checked, and why you chose this particular skill over alternatives.
+
+Clean up any large downloaded files before finishing.

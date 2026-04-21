@@ -1,1 +1,1 @@
-Skill presentation format and install command
+Install command correctness and flags
