@@ -1,33 +1,28 @@
-# AI Tutor Response Evaluator
+# Customer Support Response Evaluator
 
-## Problem/Feature Description
+## Problem Description
 
-An ed-tech startup has deployed an AI tutoring assistant to help middle and high school students understand STEM concepts. The product team needs to automate quality assurance: right now human reviewers spot-check a sample of tutor responses each week, but with hundreds of thousands of daily interactions this approach misses most quality issues.
+Contoso AI is building an automated quality assurance system for their customer support chatbot. They need to evaluate which of two candidate responses is better for a given customer query — for example, to select the best response when A/B testing new chatbot configurations.
 
-The team wants a Python evaluation module that uses an LLM as judge to score tutor responses against defined quality criteria. They have agreed on three criteria they care about: whether the explanation is scientifically accurate, whether the language is appropriate for the target age group, and whether the response is engaging enough to keep students motivated. Each criterion has a different importance weight that the team has already decided on.
+The team has noticed that their initial comparison tool has a subtle problem: when they manually review evaluations, the first response in the comparison tends to win more often than it should, and longer responses seem to get an unfair advantage. This is producing skewed model selection decisions in production.
 
-The evaluation module needs to produce structured, auditable results so that quality reviewers can understand why a response received a particular score — not just the final number. The team plans to use these scores to flag low-quality responses for human review and to track quality trends over time.
+They need a Python module that compares two AI responses for a given prompt, using an LLM as the judge. The comparison must be robust to the ordering of responses and must not systematically favor verbosity. When the comparison produces inconsistent results, the evaluator should report that honestly rather than picking an arbitrary winner.
 
 ## Output Specification
 
-Produce a Python file `evaluator.py` implementing the evaluation module. The module should:
-- Accept a student prompt, a tutor response, and a list of criteria (each with a name, description, and weight)
-- Call an LLM to score the response and return structured results
-- Include a working example that demonstrates scoring the provided sample
+Produce a single Python file `evaluator.py` that implements the pairwise comparison logic. The file should:
 
-Also produce `evaluation_output.json` containing the result of running the evaluator on the sample input below.
+- Define a function (or class) that takes two responses and an original prompt as inputs
+- Build the evaluation prompts used to call the judge LLM (the actual LLM calls can be stubbed or mocked — the important part is the prompt construction and the comparison logic)
+- Demonstrate the full comparison protocol by running an end-to-end example with two sample responses and printing the result
+- Return or print a final structured result (as JSON or a Python dict) for the sample comparison
 
-## Input Files
+The sample comparison should use these two responses to the prompt "Explain what recursion is in programming":
 
-The following sample is provided for testing your evaluator. Extract it before beginning.
+**Response A**: "Recursion is when a function calls itself. For example, to compute the factorial of n, you call factorial(n-1) until you reach the base case of factorial(0) = 1."
 
-=============== FILE: inputs/sample.json ===============
-{
-  "prompt": "Why does the Moon always show the same face to Earth?",
-  "response": "The Moon always shows us the same face because of something called tidal locking. Gravity from Earth has slowly slowed down the Moon's spin over billions of years until the time it takes to rotate once exactly matches the time it takes to orbit Earth — about 27 days. So even though the Moon is rotating, it rotates at the same rate it orbits, which means the same side always faces us. It's like if you walked in a circle around a friend while slowly spinning so that you always faced them.",
-  "criteria": [
-    {"name": "Scientific Accuracy", "description": "Correctness of the scientific explanation and mechanisms described", "weight": 5},
-    {"name": "Age-Appropriate Language", "description": "Language and analogies suitable for middle or high school students", "weight": 3},
-    {"name": "Engagement", "description": "Response is interesting and motivates continued learning", "weight": 2}
-  ]
-}
+**Response B**: "Recursion in programming means a function invokes itself as part of its own definition. To prevent infinite loops, every recursive function needs a base case — a condition under which it stops calling itself. It is commonly used for tree traversal, divide-and-conquer algorithms, and problems that have a naturally recursive structure such as computing Fibonacci numbers."
+
+Evaluation criteria for the sample: clarity, completeness, and accessibility for a beginner.
+
+Save the output of running `python evaluator.py` to a file called `evaluator_output.txt` (or show it in a `if __name__ == "__main__"` block that produces clear output).

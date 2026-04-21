@@ -1,1 +1,1 @@
-Direct scoring with justification-first prompting
+Pairwise comparison with position bias mitigation
