@@ -1,20 +1,27 @@
-# Preparing Commits for a Hotfix Release
+# Write Commit Messages for a Mixed Batch of Changes
 
-## Problem/Feature Description
+## Problem Description
 
-A production incident has just been resolved. The on-call engineer traced several customer-reported problems to a set of interconnected bugs in the API layer and fixed them over the past few hours. Before cutting the hotfix release branch, the team lead needs all the changes committed with well-written messages, because the post-mortem document and the incident ticket will reference the git history directly.
+A backend engineering team is preparing a release branch for a microservices application. The codebase is organized into several top-level directories: `auth/`, `api/`, `db/`, `user-profile/`, and `email-sender/`. Each directory represents a self-contained service module.
 
-The changes are non-trivial — reviewers will need to understand not just what changed but why, since the root causes weren't obvious. Additionally, each fix corresponds to a known issue in the tracker.
+During the release prep, several changes were made and need to be committed. Some changes are neatly isolated to one module, while others touched shared infrastructure or config files across the entire project.
 
-Write commit messages for the three change sets described below and save them to a file called `hotfix_commits.md`. Label each one clearly (e.g., "## Commit 1").
+The tech lead has asked for clean, professional commit messages that will hold up in code review and remain useful for future contributors navigating the git log.
 
-## Change Sets
+Write commit messages for all five changes listed below, and save them to a file called `commit_messages.md`. Label each entry (e.g., "## Change 1") and include the full commit message text underneath.
 
-**Commit 1 — API response parser (Issue #418)**
-The API response parser was throwing an unhandled exception whenever a downstream microservice returned a 204 No Content. The fix wraps the body-parsing step in a guard clause so that empty bodies are treated as valid empty responses. Previously the team had worked around this by always returning a 200 with an empty JSON object, but that violated the REST contract.
+## Output Specification
 
-**Commit 2 — Rate limiter middleware (Issue #431)**
-The rate limiter was counting requests against the wrong tenant ID when the `X-Forwarded-For` header was present. The bug was introduced three months ago when IPv6 support was added. The fix reads the correct header chain and falls back to the socket address only when proxy headers are absent.
+Produce a file named `commit_messages.md` with a labeled commit message for each of the five changes below.
 
-**Commit 3 — Health check endpoint (Issue #440)**
-The `/health` endpoint was returning 200 even when the database connection pool was exhausted. Downstream load balancers relied on this endpoint to decide whether to route traffic, so exhausted instances kept receiving requests. The fix adds a check against the pool's active/idle connection ratio and returns 503 when the threshold is exceeded.
+## Changes to Commit
+
+**Change 1:** Added rate limiting to the API gateway endpoints so that individual IP addresses cannot make more than 100 requests per minute.
+
+**Change 2:** The password hashing algorithm in the authentication module was upgraded from MD5 to bcrypt to improve security.
+
+**Change 3:** Updated ESLint rules, Prettier configuration, and the root-level `.editorconfig` file to enforce a consistent code style across all modules in the monorepo.
+
+**Change 4:** Fixed a connection pool exhaustion bug in the database module that caused timeouts under load testing.
+
+**Change 5:** Added a new `user-profile` service endpoint that returns the user's full activity history as a paginated JSON response. This is a new capability that did not previously exist in the user-profile module.

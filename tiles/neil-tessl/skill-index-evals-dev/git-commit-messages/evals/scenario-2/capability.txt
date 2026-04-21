@@ -1,1 +1,1 @@
-Scope naming conventions and omission rules
+Commit body for complex changes and issue references
