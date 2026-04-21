@@ -1,24 +1,20 @@
-# Resilient Music Generation CLI with Prompt Retry
+# Music Library Generator with Metadata Archive
 
 ## Problem/Feature Description
 
-A content agency uses AI-generated music for social media videos. Their copywriters sometimes describe music in terms of well-known artists or song titles, which causes the generation API to reject the request. The agency wants a Python CLI tool that handles these rejections gracefully: when a prompt is flagged, the tool should automatically retry using the alternative phrasing that the API itself suggests, rather than failing with an unhelpful error message.
+A podcast production studio is building an internal music library tool. They need a Python script that generates background music tracks for various podcast formats — interview intros, transition stings, and closing themes — and stores not just the audio but also structured metadata about each generated track. The metadata will feed into an internal catalog system where producers can search tracks by their musical characteristics, section breakdowns, and styles.
 
-The tool also needs to support scoring background music to existing video clips. Videos are provided as local file paths, and the music should match the mood described by the user. Style guidance should be split sensibly: the overall musical narrative goes in the description, while short mood or genre keywords go as separate style tags.
+Additionally, the studio has strict licensing policies: all music used must be instrumental (no vocals allowed), and the team had a previous incident where a developer accidentally generated music by referencing a famous artist's name in a prompt, which caused an API rejection. The new tool needs to handle such errors gracefully and continue processing.
 
-The engineering team wants a single script that handles both use-cases (prompt-based generation and video scoring) and recovers automatically from content policy rejections in both flows.
+Write a Python script `generate_library.py` that:
 
-## Output Specification
+1. Generates three podcast music tracks: an interview intro, a transition sting, and a closing theme.
+2. For each track, retrieves both the audio AND the structured composition metadata (plan + any song metadata) in a single API call.
+3. Saves each audio file using the filename provided by the API response.
+4. Saves the composition metadata for each track as `{track_name}_metadata.json`.
+5. Implements error handling that catches API errors and, when the error response includes a suggested alternative prompt, logs that suggestion to a file `error_suggestions.txt` and retries with the suggested prompt.
+6. Ensures all generated tracks are purely instrumental.
 
-Write a Python script named `music_cli.py` that supports two sub-commands:
+Also write a `library_summary.md` explaining which API method was used and why (one paragraph), and noting any error-recovery logic implemented.
 
-1. `python music_cli.py generate "<prompt>" <output_file.mp3>` — generates music from a text prompt and saves to the given output filename. Duration should default to 30 seconds.
-2. `python music_cli.py score "<description>" "<tag1,tag2,...>" <video_file> <output_file.mp3>` — generates background music for a single video file
-
-For both sub-commands:
-- If the API rejects the request due to a content policy violation (e.g. referencing a specific artist), the script must automatically retry once using the alternative phrasing provided by the API error response
-- Print a short message indicating whether a retry was needed
-
-Also include a `requirements.txt` file listing all required Python packages.
-
-The script must work with only `ELEVENLABS_API_KEY` set in the environment.
+Since real API calls require credentials, write the script with the API calls commented out but structurally complete and syntactically valid.

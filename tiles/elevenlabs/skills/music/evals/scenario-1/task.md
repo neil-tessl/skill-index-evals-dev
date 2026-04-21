@@ -1,20 +1,50 @@
-# Custom Orchestral Score Generator with Section Control
+# Automated Video Score Generator for a Documentary Series
 
 ## Problem/Feature Description
 
-A game studio is producing a cinematic trailer for their new title and needs a 60-second orchestral track with a specific narrative arc: a quiet, tense opening that builds into a triumphant climax. Their audio director has rejected previous AI-generated tracks because the structure was too uniform — they need to be able to inspect the generated musical structure before committing to audio rendering, and potentially adjust the pacing of individual sections.
+A production company is post-producing a 4-part nature documentary series. Each episode has multiple scenes that need original background music synchronized to the footage. The editor wants a Python script that takes a set of video clips and automatically generates fitting background scores for each scene.
 
-Write a Python script that gives the audio director fine-grained control over the music structure. The script should first produce an intermediate structural description of the track so the director can review it (print it to stdout), and then generate the final audio from that structure. The audio director also wants to see which global musical styles the system chose, so those should be printed as well.
+The team has three short video clips from different episodes: a tranquil ocean sunset, a fast-paced wildlife chase, and a mysterious cave exploration sequence. Each needs a distinct musical treatment. The clips vary in length and mood, and the team wants to steer both the narrative arc of the music (using a longer description) and quickly communicate the sonic palette (using brief style labels separately from the description).
 
-## Output Specification
+Write a Python script `generate_scores.py` that generates background music for each of the three provided video clips using the appropriate ElevenLabs API endpoint. For each clip, the script should:
+- Use the video file as input to the music generation
+- Provide a high-level narrative description of what the music should accomplish emotionally
+- Provide concise style keywords separately from the description
+- Save the resulting audio as `score-{clip_name}.mp3`
 
-Write a Python script named `generate-trailer-score.py` that:
+Also write a `generation_plan.md` that documents, for each clip:
+- The API method used
+- The description provided
+- The style keywords provided (listed separately from the description)
+- How many style keywords were used
+- The output filename
 
-- Generates a 60-second orchestral music track suited for a cinematic game trailer
-- Prints the global positive styles chosen for the composition
-- Prints each section name and its duration
-- Saves the final audio as `trailer-score.mp3`
+Since real API calls require credentials, write the script with the API calls commented out but structurally complete. The script should be syntactically valid Python.
 
-Also include a `requirements.txt` listing the Python packages needed to run the script.
+## Input Files
 
-The script must be runnable with just `ELEVENLABS_API_KEY` set in the environment — no other configuration or input files should be required.
+The following files are provided as inputs. Extract them before beginning.
+
+=============== FILE: inputs/clips_manifest.json ===============
+{
+  "clips": [
+    {
+      "filename": "ocean_sunset.mp4",
+      "duration_seconds": 45,
+      "scene": "A slow pan across a golden ocean horizon at dusk, pelicans gliding",
+      "mood": "peaceful, reflective, warm"
+    },
+    {
+      "filename": "wildlife_chase.mp4",
+      "duration_seconds": 28,
+      "scene": "A cheetah sprinting across savannah grass in pursuit of a gazelle",
+      "mood": "urgent, exciting, primal"
+    },
+    {
+      "filename": "cave_exploration.mp4",
+      "duration_seconds": 52,
+      "scene": "Spelunkers with headlamps descend into an unexplored cavern system",
+      "mood": "mysterious, tense, wonder"
+    }
+  ]
+}
