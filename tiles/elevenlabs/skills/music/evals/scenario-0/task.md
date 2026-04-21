@@ -1,18 +1,23 @@
-# Background Music Generator for Podcast Platform
+# Adaptive Soundtrack Generator for Indie Game
 
 ## Problem/Feature Description
 
-A podcast hosting platform is adding an AI music feature so that creators can generate custom intro and outro tracks without hiring composers. The team wants a Node.js script that producers can run from the command line. The script should take a short text description of the vibe they want and produce a 45-second MP3 ready to drop into their editing software.
+A small indie game studio is building a procedurally generated dungeon crawler and wants dynamic background music that matches each zone's atmosphere. The game has four distinct zones — a haunted forest, an underground lava cavern, a celestial sky temple, and a final boss arena — and the team wants distinct tracks for each. Rather than licensing music, they want AI-generated tracks that fit the mood precisely.
 
-The engineering lead has asked for a clean TypeScript or JavaScript solution using the ElevenLabs music capabilities. The platform already manages API credentials through environment variables, so the script must pick up the key from the environment rather than accepting it as a CLI argument. The lead is particular about keeping dependencies minimal and using only officially supported packages.
+The lead developer has been experimenting with AI music generation and wants a TypeScript script that generates all four tracks. Crucially, the team wants fine-grained control: they want to inspect and potentially modify the musical structure (styles, sections) before committing to audio generation, so that they can iterate on the feel of each zone without regenerating from scratch every time.
 
 ## Output Specification
 
-Write a Node.js script (JavaScript or TypeScript) named `generate-podcast-music.js` (or `.ts`) that:
+Write a TypeScript script `generate_music.ts` that:
 
-- Accepts a music description as a command-line argument (e.g. `node generate-podcast-music.js "upbeat indie folk with acoustic guitar"`)
-- Generates a 45-second music track
-- Saves the output as `podcast-intro.mp3` in the current directory
-- Prints a short status message when the file is saved
+1. For each of the four game zones, generates a composition plan from a descriptive prompt and logs the plan's positive global styles to the console.
+2. Uses the composition plan (not the raw prompt) to generate the final audio for each zone.
+3. Saves each audio track as `zone-{n}.mp3` (e.g., `zone-1.mp3` through `zone-4.mp3`).
+4. Each track should be approximately 30 seconds long.
 
-Also produce a `package.json` listing the dependencies needed to run the script.
+Also produce a `process_log.md` file documenting:
+- Which npm package(s) were installed
+- The import statement used for the ElevenLabs client
+- For each zone: the prompt used, a summary of the composition plan's global styles, and the output filename
+
+Do not generate the actual audio files (the API call will fail without a real key) — instead, write the script and log as if the process were being documented for a teammate who will run it with real credentials. Comment out the actual API calls so the script is syntactically valid but won't execute network requests.

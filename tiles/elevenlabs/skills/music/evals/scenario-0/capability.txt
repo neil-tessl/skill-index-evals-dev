@@ -1,1 +1,1 @@
-JavaScript package and audio streaming
+JS package and composition plan workflow

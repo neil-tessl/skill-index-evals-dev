@@ -1,6 +1,6 @@
 {
   "name": "tessl-skill-index-evals/d91bd5b8dcdba4f4",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "summary": "Eval scenarios for elevenlabs/skills: music",
   "private": true,
   "skills": {
