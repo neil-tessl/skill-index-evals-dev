@@ -1,0 +1,11 @@
+{
+  "name": "tessl-skill-index-evals/5bd9772f72abf824",
+  "version": "0.0.1",
+  "summary": "Eval scenarios for elevenlabs/skills: elevenlabs-transcribe",
+  "private": true,
+  "skills": {
+    "elevenlabs-transcribe": {
+      "path": "skill/SKILL.md"
+    }
+  }
+}
