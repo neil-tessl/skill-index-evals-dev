@@ -1,1 +1,1 @@
-Outbound call campaign with dynamic variables
+Outbound call personalization and guardrails configuration

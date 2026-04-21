@@ -1,1 +1,1 @@
-React SDK hooks and package selection
+React SDK integration with hooks and client tools

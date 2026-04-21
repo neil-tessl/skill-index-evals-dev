@@ -1,6 +1,6 @@
 {
   "name": "tessl-skill-index-evals/dcc8e1eea3e29bd4",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "summary": "Eval scenarios for elevenlabs/skills: agents",
   "private": true,
   "skills": {
