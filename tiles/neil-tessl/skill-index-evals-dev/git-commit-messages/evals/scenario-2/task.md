@@ -1,26 +1,25 @@
-# Standardizing Commit Messages for a New Contributor's PR
+# Document a Week of Engineering Work as Git Commits
 
-## Problem/Feature Description
+## Problem Description
 
-A new engineer on your team has submitted a pull request containing five commits, but their commit messages don't meet the project's standards. Before the PR can be merged, you need to rewrite the commit messages to be consistent and informative. Your task is to propose a corrected commit message for each of the original ones.
+A software consultancy is handing off a project to a client's internal team. As part of the handoff, the outgoing lead engineer needs to produce a clean, professional commit history document covering the last week of work. The incoming team has no prior context on the codebase and will use this document to get up to speed quickly.
 
-The project has a mix of focused, single-module changes and broader cross-cutting changes — so some commits should identify which part of the codebase was affected, while others should not. Getting this distinction right is important: the team's release tooling parses commit messages to group changes by subsystem in the changelog.
+The changes range from routine dependency updates to significant architectural rewrites that resulted from extended investigation and trade-off analysis. The commit history document will serve as the primary onboarding reference for the new engineers.
 
-Write a file called `rewritten_commits.md` with your proposed replacement for each commit message listed below. Label each one clearly (e.g., "## Commit A").
+Write a commit message for each of the five changes below. Save all messages to a file called `commit_messages.md`, with each one labeled (e.g., "## Change 1").
 
-## Original Commit Messages to Rewrite
+## Output Specification
 
-**Commit A** — Original: `"changes to the user authentication module"`
-Context: Added password reset via email, touching only files under `src/auth/`.
+Produce a file named `commit_messages.md` containing a labeled commit message for each of the five changes below.
 
-**Commit B** — Original: `"Fixed stuff in DB layer"`
-Context: Corrected an off-by-one error in the pagination query inside `src/db/`.
+## Changes to Commit
 
-**Commit C** — Original: `"Updates"`
-Context: Bumped the versions of three third-party libraries (requests, boto3, sqlalchemy) in `requirements.txt`, and updated two configuration defaults in `config/settings.py`, and revised the CI workflow in `.github/workflows/`. This touched many unrelated areas.
+**Change 1:** Added a healthcheck endpoint to the API service at `GET /health` that returns a 200 status with a JSON body `{"status": "ok"}`.
 
-**Commit D** — Original: `"new background job processor"`
-Context: Built the initial task queue worker, entirely within `src/task-queue/`.
+**Change 2:** The session token storage was migrated from in-memory state to Redis. The application previously broke in multi-instance deployments — each server maintained its own session store, which caused users to be randomly logged out when load balancing routed them to a different instance. Redis provides a shared, persistent store that all instances can reach. This was the subject of bug report #88 which has now been resolved.
 
-**Commit E** — Original: `"Refactoring User Profile and Notification Services"`
-Context: Extracted shared validation logic used by both `src/user-profile/` and `src/notifications/` into a new `src/shared/` module. This change spans multiple modules.
+**Change 3:** Updated the `lodash` dependency from version 4.17.15 to 4.17.21 to patch a known prototype pollution vulnerability.
+
+**Change 4:** The image resizing pipeline was rewritten to use a worker queue instead of processing inline in the HTTP request handler. Previously, large image uploads caused request timeouts and blocked the event loop, leading to degraded performance for all concurrent users. Moving this work off the main thread eliminates the bottleneck and makes failure handling more reliable. This resolves issue #102.
+
+**Change 5:** Added integration tests for the password reset flow.

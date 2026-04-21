@@ -1,30 +1,25 @@
-# Documenting a Sprint's Worth of Changes
+# Prepare Commits for Code Review
 
-## Problem/Feature Description
+## Problem Description
 
-Your team has just wrapped up a two-week sprint on a web application. Several developers have pushed code locally but none of the changes have been committed yet. The engineering manager wants all changes committed before end of day with meaningful commit messages so the release notes can be auto-generated from the git history.
+Your team is wrapping up a sprint and needs to push several staged changes to the main repository before a code review session this afternoon. The tech lead has asked everyone to make sure their commit history is clean and consistent so that reviewers can quickly understand the intent of each change without reading the diff in detail.
 
-You've been handed a summary of the five batches of changes made during the sprint and asked to produce well-structured commit messages for each one. The project uses a standard commit message convention that the team's CI tooling relies on to categorize changes in changelogs, so the format matters.
+You have been handed a list of changes that need to be committed. For each change, write a well-formed commit message. All commit messages should go into a single file called `commit_messages.md`, with each message clearly labeled (e.g., "## Change 1", "## Change 2", etc.) and the full commit message text underneath.
 
 ## Output Specification
 
-Create a file called `commit_messages.md` that contains one proposed commit message per change batch below. Each commit message should be clearly labeled (e.g., "## Change 1") and formatted so it could be copied directly into `git commit -m` or a commit editor.
+Produce a file named `commit_messages.md` containing a labeled commit message for each of the six changes below.
 
-## Change Batches
+## Changes to Commit
 
-The following five change batches need commit messages:
+**Change 1:** A new endpoint was added to the payments service that lets customers download their invoice as a PDF.
 
-**Change 1 — Authentication module**
-Added support for signing in with a Google account. Users can now click "Sign in with Google" on the login page and be redirected through the OAuth2 flow.
+**Change 2:** A crash was fixed in the notification service — it was throwing an unhandled exception when a user's email address was missing from the database record.
 
-**Change 2 — Payment module**
-Fixed a crash that occurred when the payment gateway returned an empty response body instead of a proper error. Added a nil check before parsing the response.
+**Change 3:** The README was updated to include a section on how to run the test suite locally.
 
-**Change 3 — README and inline docstrings**
-Updated the project README to reflect the new authentication options. Added docstrings to three public functions in the auth module.
+**Change 4:** The user authentication logic was extracted into its own helper module to reduce duplication across three different route handlers.
 
-**Change 4 — Database migration scripts**
-Renamed the `user_tokens` table to `oauth_tokens` and added an index on the `provider` column. This is part of a larger schema cleanup.
+**Change 5:** New unit tests were added for the cart pricing functions that were introduced last week.
 
-**Change 5 — Test suite**
-Added unit tests for the new OAuth2 login flow covering the happy path and three error scenarios (invalid token, expired token, revoked access).
+**Change 6:** The build script was updated to delete the `dist/` directory before each production build to avoid stale artifacts.

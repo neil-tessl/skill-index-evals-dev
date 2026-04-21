@@ -1,1 +1,1 @@
-Conventional commit format and valid types
+Commit format, valid types, and imperative mood
