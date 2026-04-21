@@ -1,1 +1,1 @@
-No-results handling and fallback guidance
+No-skill-found fallback behavior

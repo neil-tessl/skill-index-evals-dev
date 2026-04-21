@@ -1,19 +1,13 @@
-# React Development Skills Research
+# Finding the Right Testing Skill for Our Agent Stack
 
 ## Problem/Feature Description
 
-A small engineering team is spinning up a new Next.js project and wants to augment their AI coding assistant with specialist knowledge. Their tech lead has heard there is an ecosystem of installable agent skills, and wants someone to research what's available before the team commits to anything.
+Your team has just started adopting AI-assisted development and wants to extend your agent's knowledge of software testing workflows. Specifically, the team writes end-to-end tests using Playwright and unit tests with Jest, and they'd like the agent to have specialized guidance when helping write, debug, or review those tests.
 
-The team's priorities are reliability and adoption: they have been burned before by obscure packages that turned out to be abandoned, so they want to understand the trustworthiness of whatever they install. They are not sure what skills exist or how the ecosystem is organized, so they want a thorough research process documented, not just a final answer.
+A colleague mentioned there's an open ecosystem of installable agent skills that could help, and your tech lead has asked you to research what's available and put together a short recommendation report. The team doesn't want to install anything untested or from unknown sources — they've had problems before with low-quality packages — so the report should include enough information for the team to make a confident decision.
 
 ## Output Specification
 
-Produce a file called `skills-research.md` that documents your research process and findings. The document should cover:
+Produce a file called `recommendation_report.md` that documents your discovery process and recommendation. The report should show how you searched for relevant skills, what quality signals you checked, and a clear recommendation for the best option found. If you recommend a skill, include everything the team would need to install it themselves.
 
-- Where you looked for skills and in what order
-- The search commands you ran (show these explicitly)
-- The candidate skills you found, including relevant metrics for each
-- Your assessment of each candidate's quality and trustworthiness
-- Your final recommendation(s), including the exact command a developer would run to install the top choice
-
-The document should give the tech lead enough information to understand how you reached your conclusions and to verify the quality signals themselves.
+Clean up any large downloaded files before finishing.
