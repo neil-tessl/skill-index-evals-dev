@@ -1,31 +1,22 @@
-# Model Comparison Tool for Creative Writing
+# Legal Document Review Evaluation Rubric
 
-## Problem/Feature Description
+## Problem Description
 
-A creative writing platform is running an A/B test between two versions of their story-generation model. Every week, the platform samples 200 pairs of story openings — one from each model variant — generated from the same user prompt. A head-to-head evaluation determines which model produces better results overall.
+LexAI is deploying an LLM-based assistant that reviews legal contracts for a law firm. Before going live, the team needs to establish a consistent quality standard for evaluating the assistant's contract analysis outputs. Individual lawyers on the team have been scoring the assistant's outputs manually, but scores vary widely — one reviewer rates the same output a 3 while another gives it a 5, making it impossible to track quality improvements over time.
 
-The previous evaluation setup used a single LLM pass to judge each pair, but the team noticed their results were suspiciously correlated with which response appeared first in the prompt. They suspect their evaluation method has a systematic flaw and want a more robust comparison system built from scratch.
+The team wants to create formal evaluation rubrics so that any reviewer (human or automated) produces consistent, reproducible scores. They plan to use these rubrics both for human spot-checks and to train an automated LLM judge. The rubrics need to be rigorous enough for a professional legal context, where imprecision or missing nuance could have real consequences for clients.
 
-The new system needs to compare pairs of responses and produce a winner determination with a calibrated confidence score. The team uses Claude to generate story openings and wants to make sure evaluation results are not biased by the model rating its own work highly.
+Specifically, they need rubrics for the following two criteria that matter most when reviewing legal contract analyses:
+
+1. **Legal Accuracy** — Whether the assistant's legal claims, interpretations, and conclusions are factually and legally correct
+2. **Clarity of Explanation** — Whether the assistant's analysis is comprehensible to a non-lawyer client who needs to make a business decision based on the review
 
 ## Output Specification
 
-Produce a Python file `pairwise_evaluator.py` implementing the comparison module. The module should:
-- Accept a prompt and two responses (response A and response B)
-- Perform a fair comparison and return a winner (A, B, or TIE) with a confidence score
-- Handle cases where the comparison produces an ambiguous result
+Generate two rubric files:
+- `rubric_legal_accuracy.json` — rubric for Legal Accuracy
+- `rubric_clarity.json` — rubric for Clarity of Explanation
 
-Also produce `comparison_output.json` showing the result of running the evaluator on the provided sample pair.
+Each rubric file should be a structured JSON document. Also produce a short `rubric_summary.md` explaining the key design decisions you made and why they are appropriate for this use case.
 
-## Input Files
-
-The following sample is provided for testing your evaluator. Extract it before beginning.
-
-=============== FILE: inputs/sample.json ===============
-{
-  "prompt": "Write the opening paragraph of a thriller novel set in a deep-sea research station.",
-  "response_a": "The submersible touched down on the ocean floor with a metallic groan that Dr. Elena Vasquez felt in her teeth. Three miles of black water pressed against every porthole. The station's emergency beacon had gone silent six hours ago — and now, as her headlamp swept across the docking bay, she saw why. The airlock stood open.",
-  "response_b": "Deep in the hadal zone, where pressure would crush an unprotected human body in milliseconds, the Poseidon Research Station had been home to twelve scientists for the past four months. Dr. James Okafor had reviewed their last transmission seventeen times. The words were calm, professional, routine — which was exactly what made them terrifying. Nobody spoke that calmly when everything was fine.",
-  "criteria": ["narrative tension", "prose quality", "originality"],
-  "generator_model": "claude-sonnet-4-5"
-}
+The rubrics will be used in production for a high-stakes legal setting where errors have serious client consequences — factor this into your design choices.

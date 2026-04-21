@@ -1,1 +1,1 @@
-Pairwise comparison with position-swap bias mitigation
+Domain-specific rubric generation with all required components

@@ -1,1 +1,1 @@
-Rubric generation with domain-specific components and metric selection
+Direct scoring pipeline with input validation and metric selection

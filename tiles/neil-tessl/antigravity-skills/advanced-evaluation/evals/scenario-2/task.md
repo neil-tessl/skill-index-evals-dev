@@ -1,20 +1,35 @@
-# Clinical Documentation Evaluation Framework
+# Automated Essay Scoring Pipeline
 
-## Problem/Feature Description
+## Problem Description
 
-A digital health company has built an AI assistant that helps physicians draft clinical notes from audio recordings of patient encounters. Before deploying to hospitals, the company must validate that the assistant's output meets clinical documentation standards. Their regulatory team requires a formal validation study comparing AI-generated notes to those written by experienced physicians.
+EduBot is an AI tutoring platform that uses an LLM to give students feedback on their writing assignments. The team has been manually reviewing the LLM's essay feedback outputs weekly, but as the platform grows to thousands of students they can no longer keep up. They want to automate the quality-monitoring process using an LLM-as-judge approach.
 
-The quality team needs two things: first, a structured scoring rubric that physicians can use to evaluate AI-generated clinical notes on the criterion of Clinical Information Completeness (whether all medically relevant information from the encounter is captured); second, a plan for which statistical metrics to use when analyzing the validation study results and comparing automated evaluation to physician ground truth.
+The platform already has 200 historical essay feedbacks where human reviewers gave scores on several criteria. The team wants to use this labeled data to validate whether their automated judge agrees well enough with humans before they fully trust it. They also need to monitor quality over time once deployed.
 
-The rubric will be used by hospitalists with busy schedules, so it needs to be precise and leave as little room for interpretation as possible. The domain is internal medicine clinical documentation. Given that patient safety is at stake, the evaluation standards should reflect that context.
+The engineering team needs a Python module that implements their automated evaluation pipeline. The pipeline takes an essay feedback response, the original essay prompt, and a set of scoring criteria, then produces a quality score. The module should also include a section on how to measure whether the automated scores match their human-labeled historical data (the team will supply the comparison data separately).
 
 ## Output Specification
 
-Produce two output files:
+Produce the following files:
 
-1. `rubric.json` — a structured scoring rubric for the "Clinical Information Completeness" criterion. The rubric should cover all score levels and provide everything an evaluator needs to apply it consistently.
+**`scoring_pipeline.py`** — A Python module implementing the direct scoring pipeline. It should:
+- Accept a response (essay feedback), original prompt, and a list of criteria as inputs
+- Validate the inputs before proceeding
+- Load criteria from a JSON config file (not hardcoded)
+- Build the LLM judge prompt (stub the actual API call — the important parts are the prompt construction and the output parsing logic)
+- Return a structured result object/dict
+- Include a sample run in a `if __name__ == "__main__"` block using the provided sample inputs below
 
-2. `metrics_plan.md` — a markdown document explaining which statistical metrics should be used to:
-   - Measure agreement between physician reviewers (inter-rater reliability)
-   - Validate the automated evaluation scores against physician ground truth
-   - Detect and report any systematic patterns in disagreements
+**`criteria_config.json`** — The criteria configuration file loaded by the pipeline, with at least three criteria relevant to evaluating essay feedback quality
+
+**`metrics_guide.md`** — A short document explaining which statistical metrics the team should use to validate their automated scores against the 200 human-labeled examples, and why — covering both the overall agreement question and per-criterion breakdown
+
+## Input Files
+
+The following sample data is provided for testing the pipeline. Extract it before beginning.
+
+=============== FILE: inputs/sample_essay_prompt.txt ===============
+Describe a challenge you faced and what you learned from it. (250-word essay prompt for high school students)
+
+=============== FILE: inputs/sample_feedback.txt ===============
+Your essay describes the challenge clearly and the conclusion shows genuine reflection. However, the middle section loses focus — the transition from describing the obstacle to explaining your response is abrupt. Consider adding a sentence that explicitly connects the two. The vocabulary is appropriate for the audience and there are no grammar errors. Overall, a solid piece that would benefit from stronger structural cohesion.
