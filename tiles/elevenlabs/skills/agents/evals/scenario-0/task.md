@@ -1,17 +1,21 @@
-# Voice-Enabled Product Demo Assistant
+# Voice-Powered Product Discovery Widget
 
 ## Problem/Feature Description
 
-A B2B SaaS company called Lumino is adding a voice AI assistant to their product demo page. When prospective customers visit the demo page, they can have a live voice conversation with an AI that walks them through the product's key features. The team wants the assistant to dynamically reveal different product screenshots or highlight UI elements as it mentions each feature — so the agent needs to trigger browser-side UI updates during the conversation.
+A mid-size e-commerce company called ShopVoice wants to add a voice AI assistant to their React storefront. When shoppers speak to the assistant, it should be able to highlight products visually in the page (by updating a product spotlight panel) and navigate the user to different sections of the site — all hands-free. The assistant should feel snappy and responsive with good error recovery so that network hiccups don't crash the page.
 
-The engineering team has set up the ElevenLabs agent on the backend (Python) and now needs the React frontend component to be built. They want it to handle errors gracefully in one place and to use a modern, maintainable patterns rather than grabbing a single monolithic hook that does everything. The component should show a "Start conversation" button when idle and allow the user to end the session once connected. It must also respond to the agent calling a `highlight_feature` tool, which should cause the corresponding feature card on the page to visually highlight.
+The frontend team has an existing React app and wants to integrate the ElevenLabs voice SDK. They need a self-contained React component that handles the full conversation lifecycle — starting/stopping the session, showing connection status to the user, and executing browser-side actions when the AI agent requests them. The team wants clean, idiomatic React code they can drop into their existing component tree.
 
 ## Output Specification
 
-Produce the following files:
+Produce a single file `voice-widget.tsx` (TypeScript React) that implements the `VoiceWidget` component described above. The component should:
 
-- `agent_setup.py` — Python script that creates the ElevenLabs agent with the `highlight_feature` client tool registered in its configuration. The agent's system prompt should mention it can highlight product features.
-- `ConversationWidget.tsx` — React TypeScript component that starts/ends sessions, handles errors, and registers the `highlight_feature` client tool handler.
-- `package.json` — listing all required npm dependencies.
+- Accept an `agentId` prop (string)
+- Display current connection status to the user
+- Provide a button to start and stop the conversation
+- Register two client tools that execute in the browser:
+  - `highlight_product`: accepts `{ productId: string }`, updates `window.__spotlight = productId` and returns `{ success: true }`
+  - `navigate_section`: accepts `{ section: string }`, updates `window.location.hash = section` and returns `{ success: true }`
+- Handle errors from the conversation layer
 
-The `highlight_feature` tool should accept a `feature_id` parameter (string) and the browser-side handler should log or manipulate a DOM element with id equal to `feature_id`.
+Also produce a `package.json` listing the exact npm packages needed to run this component.
