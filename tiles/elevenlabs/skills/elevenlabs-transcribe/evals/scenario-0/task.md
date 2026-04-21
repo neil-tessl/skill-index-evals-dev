@@ -1,16 +1,27 @@
-# Meeting Records Automation for a Legal Practice
+# Meeting Transcription Pipeline
 
 ## Problem/Feature Description
 
-A boutique litigation firm currently has paralegals manually transcribing client consultation recordings. Each month this consumes over 40 hours of billable paralegal time. The transcripts are critical for case preparation: attorneys need to quickly review what each party said, so the final output must clearly attribute statements to individual speakers. Mixing up who said what can have serious consequences in litigation contexts.
+Your organization records all-hands meetings, team standups, and client calls as audio files and stores them in a shared directory. The legal and compliance team now needs these recordings indexed as structured data — specifically, they want a machine-readable transcript with timestamps and labeled speaker turns for every recording. The HR team also wants to run keyword searches across the transcripts to find action items.
 
-The firm wants to integrate speech-to-text transcription into their nightly case management pipeline. Recordings are uploaded to a shared drive each evening, and an automated job should process them overnight. Because it runs unattended as part of a larger pipeline, the transcription step must not produce any interactive output — only the transcript content should reach downstream systems. The output format needs to be machine-readable so the case management software can parse and index the content for search and review.
+The recordings directory has accumulated dozens of MP3 and WAV files from the past quarter. You have been asked to write an automation script that a DevOps engineer can run on any batch of recordings. The script should be self-contained, easy to re-run, and must produce one structured output file per audio input.
 
 ## Output Specification
 
-Write a shell script named `process_meeting.sh` that:
-- Accepts a path to an audio recording file as its first argument
-- Produces a transcript to stdout or writes it to a file alongside the input
-- Is designed to run without human supervision as part of an automated batch job
+Write a shell script named `process_meetings.sh` that:
+- Accepts a directory path as its argument
+- Iterates over all `.mp3` and `.wav` files in that directory
+- Transcribes each file and saves the output as a `.json` file alongside the original (e.g., `meeting.mp3` → `meeting.json`)
+- Prints a summary to stdout when done showing how many files were processed
 
-Also write a short `README.md` explaining the prerequisites and how to invoke the script.
+The script should work non-interactively without any human prompting during execution.
+
+Also create a brief `README.md` explaining how to set up and run the pipeline, including any environment prerequisites.
+
+## Input Files
+
+The following sample manifest is provided to help you test the script's directory-iteration logic. Extract the file before beginning.
+
+=============== FILE: inputs/recordings/sample_meeting.txt ===============
+This is a placeholder representing meeting recordings in this directory.
+Real files would be: q1_all_hands.mp3, team_standup_2024-03-01.wav, client_call_acme.mp3
