@@ -1,0 +1,1 @@
+Outbound call campaign with dynamic variables
