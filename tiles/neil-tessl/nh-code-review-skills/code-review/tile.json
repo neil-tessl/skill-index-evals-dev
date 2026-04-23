@@ -1,0 +1,11 @@
+{
+  "name": "tessl-skill-index-evals/c00758c8681fe6ec",
+  "version": "0.0.2",
+  "summary": "Eval scenarios for neil-tessl/nh-code-review-skills: code-review",
+  "private": true,
+  "skills": {
+    "code-review": {
+      "path": "skill/SKILL.md"
+    }
+  }
+}
