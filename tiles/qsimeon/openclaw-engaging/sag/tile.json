@@ -1,0 +1,11 @@
+{
+  "name": "tessl-skill-index-evals/dab30ea97fe41b45",
+  "version": "0.0.1",
+  "summary": "Eval scenarios for qsimeon/openclaw-engaging: sag",
+  "private": true,
+  "skills": {
+    "sag": {
+      "path": "skill/SKILL.md"
+    }
+  }
+}
